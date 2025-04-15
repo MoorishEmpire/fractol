@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-most <ael-most@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:21:15 by ael-most          #+#    #+#             */
-/*   Updated: 2025/04/15 12:21:19 by ael-most         ###   ########.fr       */
+/*   Created: 2024/11/15 17:13:44 by ael-most          #+#    #+#             */
+/*   Updated: 2024/11/17 18:50:58 by ael-most         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../ft_printf.h"
 
-int main(int argc, char **argv)
+int	ft_putchar(char c)
 {
-    t_fractal fractal;
-
-    parse_arguments(argc, argv, &fractal);
-    initialize_fractal(&fractal);
-    setup_mlx_events(&fractal);
-    render_fractal(&fractal);
-    mlx_loop(fractal.mlx);
-    return 0;
+	return (write(1, &c, 1));
 }

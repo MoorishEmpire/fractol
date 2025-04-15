@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-most <ael-most@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:21:15 by ael-most          #+#    #+#             */
-/*   Updated: 2025/04/15 12:21:19 by ael-most         ###   ########.fr       */
+/*   Created: 2024/10/22 15:25:43 by ael-most          #+#    #+#             */
+/*   Updated: 2024/11/06 16:24:11 by ael-most         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-int main(int argc, char **argv)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-    t_fractal fractal;
+	unsigned char		target;
+	const unsigned char	*ptr;
 
-    parse_arguments(argc, argv, &fractal);
-    initialize_fractal(&fractal);
-    setup_mlx_events(&fractal);
-    render_fractal(&fractal);
-    mlx_loop(fractal.mlx);
-    return 0;
+	target = (unsigned char)c;
+	ptr = (const unsigned char *)s;
+	while (n--)
+	{
+		if (*ptr == target)
+			return ((void *)ptr);
+		ptr++;
+	}
+	return (NULL);
 }

@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-most <ael-most@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:21:15 by ael-most          #+#    #+#             */
-/*   Updated: 2025/04/15 12:21:19 by ael-most         ###   ########.fr       */
+/*   Created: 2024/10/21 17:10:40 by ael-most          #+#    #+#             */
+/*   Updated: 2024/10/29 10:19:16 by ael-most         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-int main(int argc, char **argv)
+int	ft_isalpha(int c)
 {
-    t_fractal fractal;
-
-    parse_arguments(argc, argv, &fractal);
-    initialize_fractal(&fractal);
-    setup_mlx_events(&fractal);
-    render_fractal(&fractal);
-    mlx_loop(fractal.mlx);
-    return 0;
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
 }

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-most <ael-most@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:21:15 by ael-most          #+#    #+#             */
-/*   Updated: 2025/04/15 12:21:19 by ael-most         ###   ########.fr       */
+/*   Created: 2024/11/17 18:49:04 by ael-most          #+#    #+#             */
+/*   Updated: 2024/11/18 15:44:36 by ael-most         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../ft_printf.h"
 
-int main(int argc, char **argv)
+int	ft_putstr(char *str)
 {
-    t_fractal fractal;
+	int	count;
 
-    parse_arguments(argc, argv, &fractal);
-    initialize_fractal(&fractal);
-    setup_mlx_events(&fractal);
-    render_fractal(&fractal);
-    mlx_loop(fractal.mlx);
-    return 0;
+	if (!str)
+		str = "(null)";
+	count = 0;
+	while (*str)
+		count += ft_putchar(*str++);
+	return (count);
 }

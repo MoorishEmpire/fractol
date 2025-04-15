@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-most <ael-most@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:21:15 by ael-most          #+#    #+#             */
-/*   Updated: 2025/04/15 12:21:19 by ael-most         ###   ########.fr       */
+/*   Created: 2024/10/21 21:54:14 by ael-most          #+#    #+#             */
+/*   Updated: 2024/11/02 01:49:52 by ael-most         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-int main(int argc, char **argv)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-    t_fractal fractal;
+	size_t	s_len;
+	size_t	i;
 
-    parse_arguments(argc, argv, &fractal);
-    initialize_fractal(&fractal);
-    setup_mlx_events(&fractal);
-    render_fractal(&fractal);
-    mlx_loop(fractal.mlx);
-    return 0;
+	s_len = 0;
+	while (src[s_len])
+		s_len++;
+	if (dstsize > 0)
+	{
+		i = 0;
+		while (src[i] && i < (dstsize - 1))
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (s_len);
 }

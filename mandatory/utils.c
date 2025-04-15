@@ -1,13 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-most <ael-most@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/15 12:21:28 by ael-most          #+#    #+#             */
+/*   Updated: 2025/04/15 16:45:07 by ael-most         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 unsigned int calculate_color(t_fractal *fractal)
 {
+	double	t;
+	int		r;
+	int		g;
+	int		b;
+
     if (fractal->iterations == MAX_ITERATIONS)
         return 0x000000;
 
-    int r = (fractal->iterations * 5) % 256;
-    int g = (fractal->iterations * 10) % 256;
-    int b = (fractal->iterations * 15) % 256;
+	t = (double)fractal->iterations / MAX_ITERATIONS;
+    r = (int)(9 * (1 - t) * t * t * t * 255);
+    g = (int)(15 * (1 - t) * (1 - t) * t * t * 255);
+    b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
 
     return (r << 16) | (g << 8) | b;
 }

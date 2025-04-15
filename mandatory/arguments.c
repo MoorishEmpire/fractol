@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arguments.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-most <ael-most@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/15 12:20:54 by ael-most          #+#    #+#             */
+/*   Updated: 2025/04/15 14:29:48 by ael-most         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 void parse_arguments(int argc, char **argv, t_fractal *fractal)
@@ -33,7 +45,7 @@ double str_to_double(const char *str)
     int sign = 1;
     int i = 0;
 
-    while (isspace(str[i]))
+    while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
         i++;
     if (str[i] == '+' || str[i] == '-')
     {
@@ -41,22 +53,28 @@ double str_to_double(const char *str)
             sign = -1;
         i++;
     }
-    while (isdigit(str[i]))
+    while (ft_isdigit(str[i]))
         result = result * 10.0 + (str[i++] - '0');
     if (str[i] == '.')
     {
         i++;
-        while (isdigit(str[i]))
+        while (ft_isdigit(str[i]))
         {
             fraction *= 10.0;
             result += (str[i++] - '0') / fraction;
         }
     }
 
-    return result * sign;
+    return (result * sign);
 }
 
 bool str_equals(const char *s1, const char *s2)
 {
-    return strcmp(s1, s2) == 0;
+	int	len;
+
+	if (ft_strlen(s1) >= ft_strlen(s2))
+		len = ft_strlen(s1);
+	else
+		len = ft_strlen(s2);
+    return (ft_strncmp(s1, s2, len) == 0);
 }

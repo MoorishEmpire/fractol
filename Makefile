@@ -19,8 +19,8 @@ OBJ = $(SRC:.c=.o)
 # Platform detection
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
-    MLX_FLAGS = -lmlx -lXext -lX11 -lm
-MINILIBX_DIR = minilibx_linux
+    MLX_FLAGS = -Lmlx -lXext -lX11 -lm
+MINILIBX_DIR = minilibx-linux
 MINILIBX_LIB = $(MINILIBX_DIR)/libmlx.a
 else
     MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit

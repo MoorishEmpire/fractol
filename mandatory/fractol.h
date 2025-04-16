@@ -28,13 +28,23 @@
 # define ZOOM_FACTOR 1.2
 # define MOVE_STEP 0.1
 
-# define ESC_KEY 53
-# define LEFT_KEY 123
-# define RIGHT_KEY 124
-# define DOWN_KEY 125
-# define UP_KEY 126
-# define SCROLL_UP 4
-# define SCROLL_DOWN 5
+# ifdef __linux__
+#  define ESC_KEY 65307
+#  define LEFT_KEY 65361
+#  define RIGHT_KEY 65363
+#  define DOWN_KEY 65364
+#  define UP_KEY 65362
+#  define SCROLL_UP 4
+#  define SCROLL_DOWN 5
+# else
+#  define ESC_KEY 53
+#  define LEFT_KEY 123
+#  define RIGHT_KEY 124
+#  define DOWN_KEY 125
+#  define UP_KEY 126
+#  define SCROLL_UP 4
+#  define SCROLL_DOWN 5
+# endif
 
 typedef enum e_fractal_type
 {
@@ -84,7 +94,7 @@ typedef struct s_fractal
 void				parse_arguments(int argc, char **argv, t_fractal *fractal);
 void				initialize_fractal(t_fractal *fractal);
 void				render_fractal(t_fractal *fractal);
-double				ft_atof(const char *str);
+double				str_to_double(const char *str);
 bool				str_equals(const char *s1, const char *s2);
 void				calculate_fractal_point(t_fractal *fractal);
 void				map_coordinates(t_complex *z, t_complex *c,

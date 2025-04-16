@@ -78,10 +78,10 @@ void	map_coordinates(t_complex *z, t_complex *c, t_fractal *fractal)
 
 double	map_x(int x, t_fractal *fractal)
 {
-	return (fractal->min_real + x * (fractal->max_real - fractal->min_real) / WIDTH);
+	return ((x - WIDTH / 2.0) / (fractal->zoom * WIDTH));
 }
 
 double	map_y(int y, t_fractal *fractal)
 {
-	return (fractal->min_real + y * (fractal->max_real - fractal->min_real) / WIDTH);
+	return ((y - HEIGHT / 2.0) / (fractal->zoom * HEIGHT));
 }

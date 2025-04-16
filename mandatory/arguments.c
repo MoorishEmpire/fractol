@@ -21,10 +21,10 @@ void	parse_arguments(int argc, char **argv, t_fractal *fractal)
 	}
 	else if (argc == 4 && str_equals("julia", argv[1]))
 	{
-		fractal->julia_real = ft_atof(argv[2]);
+		fractal->julia_real = str_to_double(argv[2]);
 		if (fractal->julia_real > 2.0 || fractal->julia_real < -2.0)
 			show_error(REAL_OUT_OF_RANGE);
-		fractal->julia_imag = ft_atof(argv[3]);
+		fractal->julia_imag = str_to_double(argv[3]);
 		if (fractal->julia_imag > 1.5 || fractal->julia_imag < -1.5)
 			show_error(IMAGINARY_OUT_OF_RANGE);
 		fractal->type = JULIA;
@@ -36,7 +36,7 @@ void	parse_arguments(int argc, char **argv, t_fractal *fractal)
 	}
 }
 
-double	ft_atof(const char *str)
+double	str_to_double(const char *str)
 {
 	double	result;
 	double	fraction;
@@ -58,9 +58,14 @@ double	ft_atof(const char *str)
 	while (ft_isdigit(str[i]))
 		result = result * 10.0 + (str[i++] - '0');
 	if (str[i] == '.')
+	{
 		i++;
-	while (ft_isdigit(str[i]))
-		result = result + ((str[i++] - '0') / (fraction *= 10.0));
+		while (ft_isdigit(str[i]))
+		{
+			fraction *= 10.0;
+			result += (str[i++] - '0') / fraction;
+		}
+	}
 	return ((result * sign));
 }
 

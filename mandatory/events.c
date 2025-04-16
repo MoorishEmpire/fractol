@@ -38,19 +38,12 @@ int	handle_key_press(int keycode, t_fractal *fractal)
 
 int	handle_mouse_click(int button, int x, int y, t_fractal *fractal)
 {
-	double zoom_factor = (button == SCROLL_UP) ? 1 / ZOOM_FACTOR : ZOOM_FACTOR;
-	double mouse_real = map_x(x, fractal);
-	double mouse_imag = map_y(y, fractal);
-	fractal->zoom *= zoom_factor;
-	double new_mouse_real = map_x(x, fractal);
-	double new_mouse_imag = map_y(y, fractal);
-
+	(void)x;
+	(void)y;
 	if (button == SCROLL_UP)
 		fractal->zoom *= ZOOM_FACTOR;
 	else if (button == SCROLL_DOWN)
 		fractal->zoom /= ZOOM_FACTOR;
-	fractal->min_real += (mouse_real - new_mouse_real);
-	fractal->min_imag += (mouse_imag - new_mouse_imag);
 	render_fractal(fractal);
 	return (0);
 }

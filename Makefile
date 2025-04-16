@@ -16,10 +16,17 @@ SRC = \
       mandatory/utils.c
 OBJ = $(SRC:.c=.o)
 
-# MLX
+# Platform detection
+UNAME := $(shell uname)
+ifeq ($(UNAME), Linux)
+    MLX_FLAGS = -lmlx -lXext -lX11 -lm
+MINILIBX_DIR = minilibx_linux
+MINILIBX_LIB = $(MINILIBX_DIR)/libmlx.a
+else
+    MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 MINILIBX_DIR = minilibx_opengl
 MINILIBX_LIB = $(MINILIBX_DIR)/libmlx.a
-MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+endif
 
 # LIBFT
 LIBFT_DIR = libft_mandatory

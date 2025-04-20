@@ -6,36 +6,11 @@
 /*   By: ael-most <ael-most@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:20:54 by ael-most          #+#    #+#             */
-/*   Updated: 2025/04/20 03:08:19 by moorishatlas     ###   ########.fr       */
+/*   Updated: 2025/04/19 21:43:38 by moorishatlas     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-static int ft_check(const char *str)
-{
-    int i = 0;
-    int has_digit = 0;
-    int has_dot = 0;
-
-    if (str[i] == '+' || str[i] == '-')
-        i++;
-    while (str[i])
-    {
-        if (ft_isdigit(str[i]))
-            has_digit = 1;
-        else if (str[i] == '.')
-        {
-            if (has_dot) 
-                return 0;
-            has_dot = 1;
-        }
-        else
-            return (0);
-        i++;
-    }
-    return has_digit;
-}
 
 void	parse_arguments(int argc, char **argv, t_fractal *fractal)
 {
@@ -44,7 +19,7 @@ void	parse_arguments(int argc, char **argv, t_fractal *fractal)
 		fractal->type = MANDELBROT;
 		fractal->name = argv[1];
 	}
-	else if (argc == 4 && str_equals("julia", argv[1]) && ft_check(argv[2]) && ft_check(argv[3]))
+	else if (argc == 4 && str_equals("julia", argv[1]))
 	{
 		fractal->julia_real = str_to_double(argv[2]);
 		if (fractal->julia_real > 2.0 || fractal->julia_real < -2.0)
@@ -55,12 +30,16 @@ void	parse_arguments(int argc, char **argv, t_fractal *fractal)
 		fractal->type = JULIA;
 		fractal->name = argv[1];
 	}
+	else if (argc == 2 && str_equals("burningship", argv[1]))
+	{
+		fractal->type = BURNINGSHIP;
+		fractal->name = argv[1];
+	}
 	else
 	{
 		show_error(INVALID_ARGUMENTS);
 	}
 }
-
 double	str_to_double(const char *str)
 {
 	double	result;

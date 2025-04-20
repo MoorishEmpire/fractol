@@ -6,7 +6,7 @@
 /*   By: ael-most <ael-most@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:17:16 by ael-most          #+#    #+#             */
-/*   Updated: 2025/04/15 15:01:12 by ael-most         ###   ########.fr       */
+/*   Updated: 2025/04/20 11:40:31 by moorishatlas     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define WIDTH 800
 # define HEIGHT 600
-# define MAX_ITERATIONS 60
+# define MAX_ITERATIONS 100
 
 # define DEFAULT_ZOOM 0.25
 # define ZOOM_FACTOR 1.2
@@ -30,18 +30,10 @@
 
 # ifdef __linux__
 #  define ESC_KEY 65307
-#  define LEFT_KEY 65361
-#  define RIGHT_KEY 65363
-#  define DOWN_KEY 65364
-#  define UP_KEY 65362
 #  define SCROLL_UP 4
 #  define SCROLL_DOWN 5
 # else
 #  define ESC_KEY 53
-#  define LEFT_KEY 123
-#  define RIGHT_KEY 124
-#  define DOWN_KEY 125
-#  define UP_KEY 126
 #  define SCROLL_UP 4
 #  define SCROLL_DOWN 5
 # endif
@@ -97,6 +89,7 @@ void				render_fractal(t_fractal *fractal);
 double				str_to_double(const char *str);
 bool				str_equals(const char *s1, const char *s2);
 void				calculate_fractal_point(t_fractal *fractal);
+void calculate_julia_point(t_fractal *f, int x, int y);
 void				map_coordinates(t_complex *z, t_complex *c,
 						t_fractal *fractal);
 double				map_x(int x, t_fractal *fractal);

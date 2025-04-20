@@ -16,6 +16,16 @@ SRC = \
       mandatory/utils.c
 OBJ = $(SRC:.c=.o)
 
+# BONUS
+BONUS_SRC = \
+      bonus/arguments.c \
+      bonus/events.c \
+      bonus/initialize.c \
+      bonus/main.c \
+      bonus/render.c \
+      bonus/utils.c
+BONUS_OBJ = $(BONUS_SRC:.c=.o)
+
 # Platform detection
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
@@ -42,6 +52,10 @@ $(NAME): $(OBJ) $(MINILIBX_LIB) $(LIBFT_LIB)
 $(MINILIBX_LIB):
 	@make -s -C $(MINILIBX_DIR)
 
+bonus: $(BONUS_OBJ) $(MINILIBX_LIB) $(LIBFT_LIB)
+	$(emo)
+	@$(CC) $(CFLAGS) $(BONUS_OBJ) $(LIBFT_LIB) $(MINILIBX_LIB) $(MLX_FLAGS) -o $(NAME)
+
 $(LIBFT_LIB):
 	@make -s -C $(LIBFT_DIR)
 
@@ -51,7 +65,7 @@ $(LIBFT_LIB):
 clean:
 	@make -s -C $(MINILIBX_DIR) clean
 	@make -s -C $(LIBFT_DIR) clean
-	@$(RM) $(OBJ)
+	@$(RM) $(OBJ) $(BONUS_OBJ)
 
 fclean: clean
 	@make -s -C $(MINILIBX_DIR) clean

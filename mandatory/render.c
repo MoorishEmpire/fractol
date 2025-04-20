@@ -6,7 +6,7 @@
 /*   By: ael-most <ael-most@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:21:22 by ael-most          #+#    #+#             */
-/*   Updated: 2025/04/15 17:45:46 by ael-most         ###   ########.fr       */
+/*   Updated: 2025/04/20 03:38:55 by moorishatlas     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	render_fractal(t_fractal *fractal)
 	int				x;
 	int				y;
 	int				pixel_pos;
-	unsigned int	color;
 
 	x = 0;
 	while (x < WIDTH)
@@ -27,16 +26,40 @@ void	render_fractal(t_fractal *fractal)
 		{
 			fractal->x = x;
 			fractal->y = y;
-			calculate_fractal_point(fractal);
+			if (fractal->type == JULIA)
+				calculate_julia_point(fractal, x, y);
+			else
+				calculate_fractal_point(fractal);
 			pixel_pos = (y * fractal->line_size) + (x * fractal->bpp / 8);
-			color = calculate_color(fractal);
-			*(unsigned int *)(fractal->pixels + pixel_pos) = color;
+			*(unsigned int *)(fractal->pixels + pixel_pos) = calculate_color(fractal);
 			y++;
 		}
 		x++;
 	}
 	mlx_put_image_to_window(fractal->mlx, fractal->window, fractal->image, 0,
 		0);
+}
+
+void calculate_julia_point(t_fractal *f, int x, int y)
+{
+    t_complex z;
+    t_complex c;
+    double tmp;
+
+    z.real = f->min_real + (double)x / WIDTH * (f->max_real - f->min_real);
+    z.imag = f->max_imag - (double)y / HEIGHT * (f->max_imag - f->min_imag);
+    c.real = f->julia_real;
+    c.imag = f->julia_imag;
+    f->iterations = 0;
+    while (f->iterations < MAX_ITERATIONS)
+    {
+        tmp = z.real * z.real - z.imag * z.imag + c.real;
+        z.imag = 2 * z.real * z.imag + c.imag;
+        z.real = tmp;
+        if (z.real * z.real + z.imag * z.imag > 4.0)
+            break;
+        f->iterations++;
+    }
 }
 
 void	calculate_fractal_point(t_fractal *fractal)
@@ -67,21 +90,14 @@ void	map_coordinates(t_complex *z, t_complex *c, t_fractal *fractal)
 		c->real = map_x(fractal->x, fractal);
 		c->imag = map_y(fractal->y, fractal);
 	}
-	else
-	{
-		z->real = map_x(fractal->x, fractal);
-		z->imag = map_y(fractal->y, fractal);
-		c->real = fractal->julia_real;
-		c->imag = fractal->julia_imag;
-	}
 }
 
 double	map_x(int x, t_fractal *fractal)
 {
-	return ((x - WIDTH / 2.0) / (fractal->zoom * WIDTH));
+	return ((x - WIDTH / 2.0) / (fractal->zoom * WIDTH)) + fractal->center_x;
 }
 
 double	map_y(int y, t_fractal *fractal)
 {
-	return ((y - HEIGHT / 2.0) / (fractal->zoom * HEIGHT));
+	return ((y - HEIGHT / 2.0) / (fractal->zoom * HEIGHT)) + fractal->center_y;
 }
